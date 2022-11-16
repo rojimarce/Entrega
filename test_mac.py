@@ -1,4 +1,6 @@
 from mac import *
+from prenda import *
+from sucursales import *
 import pytest 
 
 
