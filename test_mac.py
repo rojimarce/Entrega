@@ -132,3 +132,25 @@ def test_contar_por_categorias_con_dos_productos_de_distinta_categoria():
     sucursal_boedo.registrar_producto(remera_talle_s)
     sucursal_boedo.registrar_producto(jean_talle_40)
     assert sucursal_boedo.contar_categorias() == 2
+    
+def test_descontinuar_jean_talle_40_sin_stock():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.descontinuar_productos()
+    assert len(sucursal_boedo.productos) == 0
+    
+def test_vamos_a_buscar_productos_por_su_precio_como_referencia():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    assert remera_talle_s.precio == 1500
+    assert jean_talle_40.precio == 3000
+
+
+def test_ventas_del_dia_con_productos_y_35_und_del_mismo():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    sucursal_boedo.recargar_stock(100, 500)
+    sucursal_boedo.recargar_stock(200, 500)
+    sucursal_boedo.realizar_compra(100, 100, True)
+    assert sucursal_boedo.valor_ventas_del_dia() == 150000
