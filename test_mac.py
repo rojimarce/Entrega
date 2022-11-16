@@ -58,5 +58,14 @@ def productos_previamente_recargados_air():
 
 
 ###################################### TESTS / Pruebas ##################################################
-def ():
-    pass
+def test_registrar_un_producto():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    assert len(sucursal_boedo.productos) == 1
+    
+def test_registrando_multiples_productos_4():
+    sucursal_boedo.registrar_producto(zapatos_negros)
+    sucursal_boedo.registrar_producto(gorra_blanca)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    
+    assert len(sucursal_boedo.productos) == 3
