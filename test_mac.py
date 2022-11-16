@@ -156,3 +156,39 @@ def test_ventas_del_dia_con_productos_y_35_und_del_mismo():
     sucursal_boedo.recargar_stock(200, 500)
     sucursal_boedo.realizar_compra(100, 100, True)
     assert sucursal_boedo.valor_ventas_del_dia() == 150000
+    
+def test_solo_me_sumara_las_ventas_que_sean_del_preente_anio():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    sucursal_boedo.recargar_stock(100, 200)
+    sucursal_boedo.recargar_stock(200, 400)
+    sucursal_boedo.realizar_compra(100, 52, True)
+    sucursal_boedo.realizar_compra(200, 13, True)
+    sucursal_boedo.ventas.append({"producto":"celular", "monto":25000, "anio":2020})
+    assert sucursal_boedo.ventas_del_anio() == 117000
+
+def test_de_ganancia_de_la_sucursal_fisica():
+    reiniciar_listas(sucursal_boedo)
+    reiniciar_stock(Prenda)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    sucursal_boedo.recargar_stock(100, 200)
+    sucursal_boedo.recargar_stock(200, 400)
+    sucursal_boedo.realizar_compra(100, 60, True)
+    sucursal_boedo.realizar_compra(200, 20, True)
+    assert sucursal_boedo.ganancia_diaria() == 135000
+
+def test_de_ganancia_sucursal_virtual():
+    reiniciar_listas(sucursal_lujan)
+    reiniciar_stock(Prenda)
+    sucursal_lujan.registrar_producto(remera_talle_s)
+    sucursal_lujan.registrar_producto(jean_talle_40)
+    sucursal_lujan.registrar_producto(gorra_blanca)
+    sucursal_lujan.recargar_stock(100, 200)
+    sucursal_lujan.recargar_stock(200, 400)
+    sucursal_lujan.recargar_stock(300, 600)
+    sucursal_lujan.modificar_gasto_variable(1000)
+    sucursal_lujan.realizar_compra(100, 5, True)
+    sucursal_lujan.realizar_compra(200, 10, True)
+    assert sucursal_lujan.ganancia_diaria() == 36500

@@ -62,4 +62,6 @@ class Promocion:
     
 class Liquidacion:
     def precio_final(self, precio):
-        return precio / 2  
+        return precio / 2 
+    
+    
