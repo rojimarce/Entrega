@@ -63,9 +63,35 @@ def test_registrar_un_producto():
     sucursal_boedo.registrar_producto(remera_talle_s)
     assert len(sucursal_boedo.productos) == 1
     
-def test_registrando_multiples_productos_4():
+def test_registrando_multiples_productos_3():
     sucursal_boedo.registrar_producto(zapatos_negros)
     sucursal_boedo.registrar_producto(gorra_blanca)
     sucursal_boedo.registrar_producto(remera_talle_s)
-    
     assert len(sucursal_boedo.productos) == 3
+    
+def test_verifico_si_tengo_stock():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.recargar_stock(100, 500)
+    assert sucursal_boedo.hay_stock(100) == True
+    
+def test_recargo_el_stock_de_remera():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.recargar_stock(100, 320)
+    assert sucursal_boedo.hay_stock(100)
+
+def test_recargar_varios_productos_a_nuestro_stock_en_total_tres_y_valido_us_cantidades():
+    reiniciar_listas(sucursal_boedo)
+    reiniciar_stock(remera_talle_s)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    sucursal_boedo.registrar_producto(gorra_blanca)
+    sucursal_boedo.recargar_stock(100, 1)
+    sucursal_boedo.recargar_stock(200, 50)
+    sucursal_boedo.recargar_stock(300, 10)
+    assert gorra_blanca.stock == 10
+    assert remera_talle_s.stock == 1
+    assert jean_talle_40.stock == 50
+    
+
