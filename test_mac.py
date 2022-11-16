@@ -94,4 +94,25 @@ def test_recargar_varios_productos_a_nuestro_stock_en_total_tres_y_valido_us_can
     assert remera_talle_s.stock == 1
     assert jean_talle_40.stock == 50
     
+def test_muestro_mi_stock_sin_productos_y_por_ende_estara_vacio():
+    reiniciar_listas(sucursal_boedo)
+    reiniciar_stock(jean_talle_40)
+    reiniciar_stock(gorra_blanca)
+    sucursal_boedo.registrar_producto(gorra_blanca)
+    assert sucursal_boedo.hay_stock(300) == False
+    
+def test_calculo_el_precio_final_con_cliente_extranjero():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.recargar_stock(100, 500)
+    assert sucursal_boedo.calcular_precio_final(remera_talle_s, True) == 1500
+    
+def test_calculo_el_precio_final_con_comprador_local():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.recargar_stock(100, 500)
+    assert sucursal_boedo.calcular_precio_final(remera_talle_s, False) == 1815
+
+
+    
 
