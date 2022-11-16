@@ -113,6 +113,22 @@ def test_calculo_el_precio_final_con_comprador_local():
     sucursal_boedo.recargar_stock(100, 500)
     assert sucursal_boedo.calcular_precio_final(remera_talle_s, False) == 1815
 
+def test_realizo_una_compra():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.recargar_stock(100, 500)
+    sucursal_boedo.realizar_compra(100,1, True)
+    assert len(sucursal_boedo.ventas) == 1
 
+def test_valido_cantidad_de_compras_que_seran_3():
+    productos_previamente_recargados_retiro()
+    sucursal_boedo.realizar_compra(100, 27, True)
+    sucursal_boedo.realizar_compra(400, 21, True)
+    sucursal_boedo.realizar_compra(300, 22, True)
+    assert len(sucursal_boedo.ventas) == 3
     
-
+def test_contar_por_categorias_con_dos_productos_de_distinta_categoria():
+    reiniciar_listas(sucursal_boedo)
+    sucursal_boedo.registrar_producto(remera_talle_s)
+    sucursal_boedo.registrar_producto(jean_talle_40)
+    assert sucursal_boedo.contar_categorias() == 2
